@@ -35,3 +35,15 @@ class Model:
 
     def save_book(self):
         self.__data_handler.save_data_to_file(self.__phonebook.get_book_as_dict())
+
+    def add_new_contact(self, input_new_contact: dict) -> bool:
+        next_id = self.__phonebook.get_max_id + 1  # to generate next contact_id
+        new_contact = Contact(next_id)
+        for key, value in input_new_contact.items():
+            if key.strip().lower() == "name":
+                new_contact.name = value
+            if key.strip().lower() == "phone":
+                new_contact.phone = value
+            if key.strip().lower() == "comment":
+                new_contact.comment = value
+        self.__phonebook.add_to_book(new_contact)

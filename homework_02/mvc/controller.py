@@ -47,20 +47,18 @@ class Controller:
                     self.view.print_book(self.model.get_book().get_book_as_dict())
                 else:
                     print(STR_PHONEBOOK_NOT_OPENED)
-            #
-            # # new contact
-            # elif user_input == 4:
-            #     if book:
-            #         new_id = new_contact()
-            #         if new_id:
-            #             print(f"Contact with ID {new_id} was successfully added.")
-            #         else:
-            #             print(f"Something went wrong. Try again.")
-            #     else:
-            #         print("Phonebook is not opened!")
-            #     print_menu()
-            #     choose_menu()
-            #
+
+            # new contact
+            elif user_input == 4:
+                if self.model.book_is_opened():
+                    new_id = self.model.add_new_contact()
+                    if new_id:
+                        self.view.println(STR_CONTACT_ADDED.format(new_id=new_id))
+                    else:
+                        self.view.println(STR_WRONG)
+                else:
+                    self.view.println(STR_PHONEBOOK_NOT_OPENED)
+
             # # find contact
             # elif user_input == 5:
             #     if book and len(book) > 0:
