@@ -1,3 +1,7 @@
+from dataclasses import fields
+
+from homework_02.book.contact import Contact
+
 JSON_FILENAME = "json/users_short.json"
 
 # divider for printing
@@ -10,7 +14,11 @@ MENU = ("Open phonebook",
         "Find contact",
         "Edit contact",
         "Delete contact",
-        "Close and exit")
+        "Close and exit"
+        )
+
+# define FIELDS according to the field names of dataclass Contact
+FIELDS_MAP = {f"FIELD_{field.name.upper()}": field.name.lower() for field in fields(Contact)}
 
 STR_INCORRECT_INPUT = "Incorrect input!"
 STR_PHONEBOOK_NOT_OPENED = "Phonebook is empty or not opened!"

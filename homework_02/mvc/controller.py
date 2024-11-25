@@ -51,11 +51,8 @@ class Controller:
             # new contact
             elif user_input == 4:
                 if self.model.book_is_opened():
-                    new_id = self.model.add_new_contact()
-                    if new_id:
-                        self.view.println(STR_CONTACT_ADDED.format(new_id=new_id))
-                    else:
-                        self.view.println(STR_WRONG)
+                    new_id = self.model.add_new_contact(self.view.input_contact())
+                    self.view.println(STR_CONTACT_ADDED.format(new_id=new_id) if new_id else STR_WRONG)
                 else:
                     self.view.println(STR_PHONEBOOK_NOT_OPENED)
 

@@ -1,5 +1,5 @@
-from homework_02.book.contact import Contact
 from homework_02.book.phone_book import PhoneBook
+from homework_02.resources.strings import *
 
 
 class Model:
@@ -9,23 +9,22 @@ class Model:
         # Model requires data_handler on creation (file, db, ...)
         self.__data_handler = data_handler
 
-    '''every call create a new instance of PhoneBook'''
     def open_book(self) -> PhoneBook:
+        # every call create a new instance of PhoneBook
         self.__phonebook = PhoneBook()
+        # load data to json dict
+        data = self.__data_handler.load_data_to_dict()
 
-        for cid, contact in self.__data_handler.load_data_to_dict().items():
+        for cid, contact in data.items():
             new_contact = Contact(cid)
             for key, value in contact.items():
-                if key.strip().lower() == "name":
-                    new_contact.name = value
-                if key.strip().lower() == "phone":
-                    new_contact.phone = value
-                if key.strip().lower() == "comment":
-                    new_contact.comment = value
+                key = key.strip().lower()
+                if key in FIELDS_MAP.values():
+                    setattr(new_contact, key, value)
+
             self.__phonebook.add_to_book(new_contact)
 
-        if self.book_is_opened():
-            return self.__phonebook
+        return self.__phonebook if self.book_is_opened() else None
 
     def get_book(self) -> PhoneBook:
         return self.__phonebook
@@ -37,13 +36,16 @@ class Model:
         self.__data_handler.save_data_to_file(self.__phonebook.get_book_as_dict())
 
     def add_new_contact(self, input_new_contact: dict) -> bool:
-        next_id = self.__phonebook.get_max_id + 1  # to generate next contact_id
-        new_contact = Contact(next_id)
+        # generating next contact_id
+        next_id = self.__phonebook.get_max_id() + 1
+        # create new object of Contact
+        new_contact = Contact(str(next_id))
+
         for key, value in input_new_contact.items():
-            if key.strip().lower() == "name":
-                new_contact.name = value
-            if key.strip().lower() == "phone":
-                new_contact.phone = value
-            if key.strip().lower() == "comment":
-                new_contact.comment = value
+            key = key.strip().lower()
+            if key in FIELDS_MAP.values():
+                setattr(new_contact, key, value)
+
         self.__phonebook.add_to_book(new_contact)
+
+        return next_id

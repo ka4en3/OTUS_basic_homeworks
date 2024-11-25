@@ -17,23 +17,31 @@ class View:
 
     @staticmethod
     def print_book(book: dict):
-        for cont_id, contact in book.items():
-            print(f"{DIVIDER}\nID: {cont_id}")
+        for cid, contact in book.items():
+            print(f"{DIVIDER}\n{FIELDS_MAP["FIELD_ID"]}: {cid}")
             print("\n".join(f"{key}: {value}" for key, value in contact.items()))
 
-    def input_new_contact(self):
-        book[next_id] = {}
-        for f in fields:
+    @staticmethod
+    def input_contact() -> dict:
+        fields_dict = {}
+        for f in [v for v in FIELDS_MAP.values() if v != FIELDS_MAP["FIELD_ID"]]:  # all fields except ID
             inp = input(f"{f}: ")
             if f.strip().lower() in ("phone", "телефон"):
-                temp = check_phone("".join(filter(str.isdigit, inp)))  # remove non digits
+                temp = View.check_phone("".join(filter(str.isdigit, inp)))  # remove non digits
                 if temp != '0':
-                    book[next_id][
+                    fields_dict[
                         f] = f"{temp[0]}({temp[1:4]}){temp[4:7]}-{temp[7:9]}-{temp[-2:]}"  # format phone number to 8(999)999-99-99
                 else:  # to stop phone-input iteration
-                    book[next_id][f] = ""
+                    fields_dict[f] = ""
             else:
-                book[next_id][f] = inp
+                fields_dict[f] = inp
+        return fields_dict
 
-        return next_id
-
+    @staticmethod
+    def check_phone(inp: str) -> str:
+        if (inp.isdigit() and len(inp) == 11) or (inp.strip() == '0'):
+            return inp
+        else:
+            inp = "".join(
+                filter(str.isdigit, input("Please enter a correct phone number ('0' for skip): ")))  # remove non digits
+            return View.check_phone(inp)
