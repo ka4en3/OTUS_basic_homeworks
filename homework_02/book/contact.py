@@ -9,7 +9,7 @@ class Contact:
     comment: str = ""
 
     def __str__(self):
-        return (f"id: {self.id}\n "
+        return (f"Id: {self.id}\n "
                 f"Name: {self.name}\n "
                 f"Phone: {self.phone}\n "
                 f"Comment: {self.comment}")

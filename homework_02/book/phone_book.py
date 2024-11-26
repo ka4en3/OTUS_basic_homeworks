@@ -14,9 +14,9 @@ class PhoneBook:
     def get_book_as_dict(self) -> dict:
         # use dict comprehension
         return {contact.id: {
-            FIELDS_MAP["FIELD_NAME"]: contact.name,
-            FIELDS_MAP["FIELD_PHONE"]: contact.phone,
-            FIELDS_MAP["FIELD_COMMENT"]: contact.comment
+            FIELDS_MAP['FIELD_NAME']: contact.name,
+            FIELDS_MAP['FIELD_PHONE']: contact.phone,
+            FIELDS_MAP['FIELD_COMMENT']: contact.comment
         } for contact in self.__book}
 
     def is_empty(self) -> bool:

@@ -18,13 +18,13 @@ class View:
     @staticmethod
     def print_book(book: dict):
         for cid, contact in book.items():
-            print(f"{DIVIDER}\n{FIELDS_MAP["FIELD_ID"]}: {cid}")
+            print(f"{DIVIDER}\n{FIELDS_MAP['FIELD_ID']}: {cid}")
             print("\n".join(f"{key}: {value}" for key, value in contact.items()))
 
     @staticmethod
     def input_contact() -> dict:
         fields_dict = {}
-        for f in [v for v in FIELDS_MAP.values() if v != FIELDS_MAP["FIELD_ID"]]:  # all fields except ID
+        for f in [v for v in FIELDS_MAP.values() if v != FIELDS_MAP['FIELD_ID']]:  # all fields except ID
             inp = input(f"{f}: ")
             if f.strip().lower() in ("phone", "телефон"):
                 temp = View.check_phone("".join(filter(str.isdigit, inp)))  # remove non digits

@@ -8,21 +8,16 @@ class JSONHandler:
         # path to JSON file
         self.path = path
 
-    def load_data_to_dict(self) -> dict:  # must return JSON-formatted dict
+    # must return JSON-formatted dict
+    def load_data_to_dict(self) -> dict:
         read_from_file = None
 
         if os.path.exists(self.path):
             print("Opening phonebook...")
-
             with open(self.path, encoding="UTF-8") as file:
                 read_from_file = json.load(file)
-
-            if read_from_file and len(read_from_file) > 0:
-                print("Phonebook was successfully opened!")
-            #     get_fields()
-            #     print_book()
-            else:
-                print("JSON file is empty! Phonebook can't be open.")
+            print("Phonebook was successfully opened!" if (read_from_file and len(read_from_file) > 0)
+                  else "JSON file is empty! Phonebook can't be open.")
         else:
             print("JSON file doesn't exist! Phonebook can't be open.")
 

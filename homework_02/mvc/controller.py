@@ -1,5 +1,5 @@
-from homework_02.mvc.model import Model
 from homework_02.mvc.view import View
+from homework_02.mvc.model import Model
 from homework_02.mvc.json_handler import JSONHandler
 from homework_02.resources.strings import *
 
@@ -46,39 +46,37 @@ class Controller:
                 if self.model.book_is_opened():
                     self.view.print_book(self.model.get_book().get_book_as_dict())
                 else:
-                    print(STR_PHONEBOOK_NOT_OPENED)
+                    self.view.println(STR_PHONEBOOK_NOT_OPENED)
 
             # new contact
             elif user_input == 4:
                 if self.model.book_is_opened():
-                    new_id = self.model.add_new_contact(self.view.input_contact())
+                    input_contact = self.view.input_contact()
+                    new_id = self.model.add_new_contact(input_contact)
                     self.view.println(STR_CONTACT_ADDED.format(new_id=new_id) if new_id else STR_WRONG)
                 else:
                     self.view.println(STR_PHONEBOOK_NOT_OPENED)
 
-            # # find contact
+            # find contact
             # elif user_input == 5:
-            #     if book and len(book) > 0:
+            #     if self.model.book_is_opened():
             #         inp = input("Please enter Name, Phone or Company to find: ")
             #         find_contact(inp.strip().lower())
             #     else:
-            #         print("Phonebook is empty or not opened!")
-            #     print_menu()
-            #     choose_menu()
-            #
-            # # edit contact
-            # elif user_input == 6:
-            #     if book and len(book) > 0:
-            #         inp = input("Please enter ID of contact to edit: ")
-            #         if edit_contact(inp.strip()):
-            #             print(f"Contact with ID {inp} was successfully edited.")
-            #         else:
-            #             print(f"Something went wrong. Try again.")
-            #     else:
-            #         print("Phonebook is empty or not opened!")
-            #     print_menu()
-            #     choose_menu()
-            #
+            #         self.view.println(STR_PHONEBOOK_NOT_OPENED)
+
+            # edit contact
+            elif user_input == 6:
+                if self.model.book_is_opened():
+                    edit_id = self.view.user_input(STR_INPUT_TO_EDIT).strip()
+                    input_contact = self.view.input_contact()
+                    self.view.println(
+                        STR_CONTACT_EDITED.format(edit_id=edit_id) if self.model.edit_contact(edit_id, input_contact)
+                        else STR_WRONG
+                    )
+                else:
+                    self.view.println(STR_PHONEBOOK_NOT_OPENED)
+
             # # delete contact
             # elif user_input == 7:
             #     if book and len(book) > 0:

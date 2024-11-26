@@ -49,3 +49,14 @@ class Model:
         self.__phonebook.add_to_book(new_contact)
 
         return next_id
+
+    def edit_contact(self, edit_id: int, input_edit_contact: dict) -> bool:
+        edit_contact = self.find_contact(edit_id)
+        for key, value in input_edit_contact.items():
+            key = key.strip().lower()
+            if key in FIELDS_MAP.values():
+                setattr(edit_contact, key, value)
+        return True
+
+    def find_contact(self, edit_id: int) -> Contact:
+        for contact in self.__phonebook
