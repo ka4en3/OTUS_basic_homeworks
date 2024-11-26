@@ -58,12 +58,13 @@ class Controller:
                     self.view.println(STR_PHONEBOOK_NOT_OPENED)
 
             # find contact
-            # elif user_input == 5:
-            #     if self.model.book_is_opened():
-            #         inp = input("Please enter Name, Phone or Company to find: ")
-            #         find_contact(inp.strip().lower())
-            #     else:
-            #         self.view.println(STR_PHONEBOOK_NOT_OPENED)
+            elif user_input == 5:
+                if self.model.book_is_opened():
+                    str_to_find = self.view.user_input(STR_INPUT_TO_FIND).strip().lower()
+                    found_contacts = self.model.find_contact_by_str(str_to_find)
+                    self.view.println(STR_FOUND_CONTACTS, found_contacts, "\n\n")
+                else:
+                    self.view.println(STR_PHONEBOOK_NOT_OPENED)
 
             # edit contact
             elif user_input == 6:

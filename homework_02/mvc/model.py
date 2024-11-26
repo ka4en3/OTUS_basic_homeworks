@@ -50,13 +50,32 @@ class Model:
 
         return next_id
 
-    def edit_contact(self, edit_id: int, input_edit_contact: dict) -> bool:
-        edit_contact = self.find_contact(edit_id)
-        for key, value in input_edit_contact.items():
-            key = key.strip().lower()
-            if key in FIELDS_MAP.values():
-                setattr(edit_contact, key, value)
-        return True
+    def edit_contact(self, edit_id: str, input_edit_contact: dict) -> bool:
+        edit_contact = self.find_contact_by_id(edit_id)
+        if edit_contact:
+            for key, value in input_edit_contact.items():
+                key = key.strip().lower()
+                if key in FIELDS_MAP.values():
+                    setattr(edit_contact, key, value)
+            return True
 
-    def find_contact(self, edit_id: int) -> Contact:
-        for contact in self.__phonebook
+        return False
+
+    def find_contact_by_id(self, edit_id: str) -> Contact:
+        return self.__phonebook.get_contact_by_id(edit_id)
+
+    def find_contact_by_str(self, str_to_find: str) -> list[Contact]:
+        # for cont_id, contact in self.__phonebook.get_book_as_dict.items():
+        #     found = 0
+        #     for key, value in contact.items():
+        #         if str(key).strip().lower() not in ("comment", "комментарий"):  # ignoring "Comment" field
+        #             for word in str(value).strip().lower().split(sep=" "):
+        #                 if inp in word:
+        #                     print_contact(cont_id)
+        #                     found = 1
+        #                     break
+        #         if found: break
+        return []
+
+
+

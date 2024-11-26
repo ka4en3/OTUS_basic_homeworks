@@ -3,8 +3,9 @@ from homework_02.resources.strings import *
 
 class View:
     @staticmethod
-    def println(output: str):
-        print(output)
+    def println(output: str, objects: list = None, sep: str = ""):
+        if output: print(output)
+        if objects is not None: print(*objects, sep=sep)
 
     @staticmethod
     def user_input(input_message: str) -> str:

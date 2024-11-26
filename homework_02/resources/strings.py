@@ -28,3 +28,5 @@ STR_PHONEBOOK_ALREADY_OPENED = "Phonebook is already opened! Do you want to over
 STR_CONTACT_ADDED = "Contact with ID {new_id} was successfully added."
 STR_INPUT_TO_EDIT = "Please enter ID of contact to edit: "
 STR_CONTACT_EDITED = "Contact with ID {edit_id} was successfully edited."
+STR_INPUT_TO_FIND = "Please enter Name, Phone or Company to find: "
+STR_FOUND_CONTACTS = "Found contacts:"
