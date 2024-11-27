@@ -9,7 +9,7 @@ class View:
 
     @staticmethod
     def user_input(input_message: str) -> str:
-        return input(input_message)
+        return input(input_message).lower().strip()
 
     @staticmethod
     def print_menu():
@@ -30,8 +30,8 @@ class View:
             if f.strip().lower() in ("phone", "телефон"):
                 temp = View.check_phone("".join(filter(str.isdigit, inp)))  # remove non digits
                 if temp != '0':
-                    fields_dict[
-                        f] = f"{temp[0]}({temp[1:4]}){temp[4:7]}-{temp[7:9]}-{temp[-2:]}"  # format phone number to 8(999)999-99-99
+                    # format phone number to 8(999)999-99-99
+                    fields_dict[f] = f"{temp[0]}({temp[1:4]}){temp[4:7]}-{temp[7:9]}-{temp[-2:]}"
                 else:  # to stop phone-input iteration
                     fields_dict[f] = ""
             else:
@@ -43,6 +43,6 @@ class View:
         if (inp.isdigit() and len(inp) == 11) or (inp.strip() == '0'):
             return inp
         else:
-            inp = "".join(
-                filter(str.isdigit, input("Please enter a correct phone number ('0' for skip): ")))  # remove non digits
+            # remove non digits
+            inp = "".join(filter(str.isdigit, input("Please enter a correct phone number ('0' for skip): ")))
             return View.check_phone(inp)

@@ -53,12 +53,12 @@ class Model:
     def edit_contact(self, edit_id: str, input_edit_contact: dict) -> bool:
         edit_contact = self.find_contact_by_id(edit_id)
         if edit_contact:
-            for key, value in input_edit_contact.items():
+            # use generator to filter out empty inputs
+            for key, value in ((k, v) for k,v in input_edit_contact.items() if v != ""):
                 key = key.strip().lower()
                 if key in FIELDS_MAP.values():
                     setattr(edit_contact, key, value)
             return True
-
         return False
 
     def find_contact_by_id(self, edit_id: str) -> Contact:
@@ -68,26 +68,18 @@ class Model:
     def find_contact_by_str(self, str_to_find: str) -> list[Contact]:
         result = []
         book = self.__phonebook.get_book()
+        words_to_find = str_to_find.split(sep=" ")
         for contact in book.values():
-            found = False
             for field in fields(contact):
-                value = getattr(contact, field.name)
-                for word in str_to_find.split(sep=" "):
-                    if word in value.strip().lower():
-                        result.append(contact)
-                        found = True
-                        break
-                if found: break
+                value = getattr(contact, field.name, None)
+                if isinstance(value, str):
+                    value = value.strip().lower()
+                    if any(word in value for word in words_to_find):
+                            result.append(contact)
+                            break
         return result
 
-        # for cont_id, contact in self.__phonebook.get_book_as_dict.items():
-        #     found = 0
-        #     for key, value in contact.items():
-        #         if str(key).strip().lower() not in ("comment", "комментарий"):  # ignoring "Comment" field
-        #             for word in str(value).strip().lower().split(sep=" "):
-        #                 if inp in word:
-        #                     print_contact(cont_id)
-        #                     found = 1
-        #                     break
-        #         if found: break
-        return []
+    def delete_contact(self, delete_id: str) -> bool:
+        return self.__phonebook.delete_from_book(delete_id)
+
+
