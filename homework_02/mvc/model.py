@@ -64,7 +64,22 @@ class Model:
     def find_contact_by_id(self, edit_id: str) -> Contact:
         return self.__phonebook.get_contact_by_id(edit_id)
 
+    # this method could also be implemented in class Phonebook
     def find_contact_by_str(self, str_to_find: str) -> list[Contact]:
+        result = []
+        book = self.__phonebook.get_book()
+        for contact in book.values():
+            found = False
+            for field in fields(contact):
+                value = getattr(contact, field.name)
+                for word in str_to_find.split(sep=" "):
+                    if word in value.strip().lower():
+                        result.append(contact)
+                        found = True
+                        break
+                if found: break
+        return result
+
         # for cont_id, contact in self.__phonebook.get_book_as_dict.items():
         #     found = 0
         #     for key, value in contact.items():
@@ -76,6 +91,3 @@ class Model:
         #                     break
         #         if found: break
         return []
-
-
-

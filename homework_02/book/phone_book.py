@@ -3,7 +3,7 @@ from homework_02.resources.strings import *
 
 class PhoneBook:
     def __init__(self):
-        self.__book = {}
+        self.__book: dict[str, Contact] = {}
         self.__ids = set()
 
     def add_to_book(self, contact: Contact) -> bool:
@@ -25,5 +25,8 @@ class PhoneBook:
     def get_max_id(self) -> int:
         return int(max(self.__ids))
 
-    def get_contact_by_id(self, cid : str) -> Contact:
+    def get_contact_by_id(self, cid: str) -> Contact:
         return self.__book.get(cid)
+
+    def get_book(self) -> dict[str: Contact]:
+        return self.__book

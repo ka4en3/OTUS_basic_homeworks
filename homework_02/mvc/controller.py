@@ -70,11 +70,15 @@ class Controller:
             elif user_input == 6:
                 if self.model.book_is_opened():
                     edit_id = self.view.user_input(STR_INPUT_TO_EDIT).strip()
-                    input_contact = self.view.input_contact()
-                    self.view.println(
-                        STR_CONTACT_EDITED.format(edit_id=edit_id) if self.model.edit_contact(edit_id, input_contact)
-                        else STR_WRONG
-                    )
+                    if edit_id:
+                        input_contact = self.view.input_contact()
+                        self.view.println(
+                            STR_CONTACT_EDITED.format(edit_id=edit_id)
+                            if self.model.edit_contact(edit_id, input_contact)
+                            else STR_WRONG
+                        )
+                    else:
+                        self.view.println(STR_CONTACT_NOT_FOUND)
                 else:
                     self.view.println(STR_PHONEBOOK_NOT_OPENED)
 
