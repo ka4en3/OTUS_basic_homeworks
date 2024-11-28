@@ -7,18 +7,21 @@ JSON_FILENAME = "json/users_short.json"
 # divider for printing
 DIVIDER = "-" * 50
 
-MENU = ("Open phonebook",
-        "Save phonebook",
-        "Show contacts",
-        "New contact",
-        "Find contact",
-        "Edit contact",
-        "Delete contact",
-        "Close and exit"
-        )
+MENU = (
+    "Open phonebook",
+    "Save phonebook",
+    "Show contacts",
+    "New contact",
+    "Find contact",
+    "Edit contact",
+    "Delete contact",
+    "Close and exit",
+)
 
 # define FIELDS according to the field names of dataclass Contact
-FIELDS_MAP = {f"FIELD_{field.name.upper()}": field.name.lower() for field in fields(Contact)}
+FIELDS_MAP = {
+    f"FIELD_{field.name.upper()}": field.name.lower() for field in fields(Contact)
+}
 
 STR_INCORRECT_INPUT = "Incorrect input!"
 STR_NOT_OPENED = "Phonebook is empty or not opened!"
