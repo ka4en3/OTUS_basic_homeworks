@@ -22,31 +22,31 @@ class Controller:
 
             # open phonebook
             if user_choice == 1:
+                self.view.println(STR_OPENING)
                 if not self.model.book_is_opened():
                     book = self.model.open_book()
-                    if book:
-                        self.view.print_book(book.get_book_as_dict())
+                    self.view.print_book(book.get_book_as_dict()) if book else self.view.println(STR_WRONG)
                 else:
-                    if self.view.user_input(STR_PHONEBOOK_ALREADY_OPENED) == "y":
+                    if self.view.user_input(STR_ALREADY_OPENED) == "y":
                         book = self.model.open_book()
-                        if book:
-                            self.view.print_book(book.get_book_as_dict())
+                        self.view.print_book(book.get_book_as_dict()) if book else self.view.println(STR_WRONG)
                     else:
                         self.view.println(STR_ABORTED)
 
             # save phonebook
             elif user_choice == 2:
-                if self.model.book_is_opened():
-                    self.model.save_book()
+                self.view.println(STR_SAVING)
+                if self.model.book_is_opened() and self.model.save_book():
+                    self.view.println(STR_SAVED)
                 else:
-                    self.view.println(STR_PHONEBOOK_NOT_OPENED)
+                    self.view.println(STR_SAVING_ERROR)
 
             # show contacts
             elif user_choice == 3:
                 if self.model.book_is_opened():
                     self.view.print_book(self.model.get_book().get_book_as_dict())
                 else:
-                    self.view.println(STR_PHONEBOOK_NOT_OPENED)
+                    self.view.println(STR_NOT_OPENED)
 
             # new contact
             elif user_choice == 4:
@@ -55,7 +55,7 @@ class Controller:
                     new_id = self.model.add_new_contact(input_contact)
                     self.view.println(STR_CONTACT_ADDED.format(new_id=new_id) if new_id else STR_WRONG)
                 else:
-                    self.view.println(STR_PHONEBOOK_NOT_OPENED)
+                    self.view.println(STR_NOT_OPENED)
 
             # find contact
             elif user_choice == 5:
@@ -64,12 +64,12 @@ class Controller:
                     found_contacts = self.model.find_contact_by_str(str_to_find)
                     self.view.println(STR_FOUND_CONTACTS, found_contacts, "\n\n")
                 else:
-                    self.view.println(STR_PHONEBOOK_NOT_OPENED)
+                    self.view.println(STR_NOT_OPENED)
 
             # edit contact
             elif user_choice == 6:
                 if not self.model.book_is_opened():
-                    self.view.println(STR_PHONEBOOK_NOT_OPENED)
+                    self.view.println(STR_NOT_OPENED)
                 else:
                     edit_id = self.view.user_input(STR_INPUT_TO_EDIT)
                     if not self.model.find_contact_by_id(edit_id):
@@ -82,7 +82,7 @@ class Controller:
             # delete contact
             elif user_choice == 7:
                 if not self.model.book_is_opened():
-                    self.view.println(STR_PHONEBOOK_NOT_OPENED)
+                    self.view.println(STR_NOT_OPENED)
                 else:
                     delete_id = self.view.user_input(STR_INPUT_TO_DELETE)
                     if not self.model.find_contact_by_id(delete_id):

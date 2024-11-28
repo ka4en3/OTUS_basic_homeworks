@@ -40,9 +40,6 @@ class View:
 
     @staticmethod
     def check_phone(inp: str) -> str:
-        if (inp.isdigit() and len(inp) == 11) or (inp.strip() == '0'):
-            return inp
-        else:
-            # remove non digits
+        while not ((inp.isdigit() and len(inp) == 11) or (inp.strip() == '0')):
             inp = "".join(filter(str.isdigit, input("Please enter a correct phone number ('0' for skip): ")))
-            return View.check_phone(inp)
+        return inp

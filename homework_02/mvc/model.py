@@ -32,8 +32,8 @@ class Model:
     def book_is_opened(self) -> bool:
         return self.__phonebook and not self.__phonebook.is_empty()
 
-    def save_book(self):
-        self.__data_handler.save_data_to_file(self.__phonebook.get_book_as_dict())
+    def save_book(self) -> bool:
+        return self.__data_handler.save_data_to_file(self.__phonebook.get_book_as_dict())
 
     def add_new_contact(self, input_new_contact: dict) -> bool:
         # generating next contact_id
