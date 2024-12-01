@@ -40,54 +40,41 @@ class Controller:
 
             # open phonebook
             if user_choice == 1:
+
                 self.view.println(STR_OPENING)
                 if not self.model.book_is_opened():
                     book = self.model.open_book()
-                    (
-                        self.view.print_book(book.get_book_as_dict())
-                        if book
-                        else self.view.println(STR_WRONG)
-                    )
+                    self.view.print_book(book.get_book_as_dict()) if book else self.view.println(STR_WRONG)
                 else:
                     if self.view.user_input(STR_ALREADY_OPENED) == "y":
                         book = self.model.open_book()
-                        (
-                            self.view.print_book(book.get_book_as_dict())
-                            if book
-                            else self.view.println(STR_WRONG)
-                        )
+                        self.view.print_book(book.get_book_as_dict()) if book else self.view.println(STR_WRONG)
                     else:
                         self.view.println(STR_ABORTED)
 
-            # save phonebook
-            elif user_choice == 2:
-                self.view.println(STR_SAVING)
-                if self.model.book_is_opened() and self.model.save_book():
-                    self.view.println(STR_SAVED)
-                else:
-                    self.view.println(STR_SAVING_ERROR)
+            # close and exit
+            elif user_choice == 8:
+                exit()
 
-            # show contacts
-            elif user_choice == 3:
-                if self.model.book_is_opened():
+            elif self.book_is_opened():
+
+                # save phonebook
+                if user_choice == 2:
+                    self.view.println(STR_SAVING)
+                    self.view.println(STR_SAVED if self.model.save_book() else STR_SAVED)
+
+                # show contacts
+                elif user_choice == 3:
                     self.view.print_book(self.model.get_book().get_book_as_dict())
-                else:
-                    self.view.println(STR_NOT_OPENED)
 
-            # new contact
-            elif user_choice == 4:
-                if self.model.book_is_opened():
+                # new contact
+                elif user_choice == 4:
                     input_contact = self.view.input_contact()
                     new_id = self.model.add_new_contact(input_contact)
-                    self.view.println(
-                        STR_CONTACT_ADDED.format(new_id=new_id) if new_id else STR_WRONG
-                    )
-                else:
-                    self.view.println(STR_NOT_OPENED)
+                    self.view.println(STR_CONTACT_ADDED.format(new_id=new_id) if new_id else STR_WRONG)
 
-            # find contact
-            elif user_choice == 5:
-                if self.model.book_is_opened():
+                # find contact
+                elif user_choice == 5:
                     str_to_find = self.view.user_input(STR_INPUT_TO_FIND)
                     found_contacts = self.model.find_contact_by_str(str_to_find)
                     self.view.println(
@@ -95,48 +82,36 @@ class Controller:
                         if found_contacts is not None
                         else self.view.println(STR_WRONG)
                     )
-                else:
-                    self.view.println(STR_NOT_OPENED)
 
-            # edit contact
-            elif user_choice == 6:
-                if not self.model.book_is_opened():
-                    self.view.println(STR_NOT_OPENED)
-                else:
+                # edit contact
+                elif user_choice == 6:
                     edit_id = self.view.user_input(STR_INPUT_TO_EDIT)
                     if not self.model.find_contact_by_id(edit_id):
                         self.view.println(STR_CONTACT_NOT_FOUND)
                     else:
                         input_contact = self.view.input_contact()
                         success = self.model.edit_contact(edit_id, input_contact)
-                        self.view.println(
-                            STR_CONTACT_EDITED.format(edit_id=edit_id)
-                            if success
-                            else STR_WRONG
-                        )
+                        self.view.println(STR_CONTACT_EDITED.format(edit_id=edit_id) if success else STR_WRONG)
 
-            # delete contact
-            elif user_choice == 7:
-                if not self.model.book_is_opened():
-                    self.view.println(STR_NOT_OPENED)
-                else:
+                # delete contact
+                elif user_choice == 7:
                     delete_id = self.view.user_input(STR_INPUT_TO_DELETE)
                     if not self.model.find_contact_by_id(delete_id):
                         self.view.println(STR_CONTACT_NOT_FOUND)
                     else:
                         success = self.model.delete_contact(delete_id)
-                        self.view.println(
-                            STR_CONTACT_DELETED.format(delete_id=delete_id)
-                            if success
-                            else STR_WRONG
-                        )
+                        self.view.println(STR_CONTACT_DELETED.format(delete_id=delete_id) if success else STR_WRONG)
 
-            # close and exit
-            elif user_choice == 8:
-                exit()
         else:
             self.view.println(STR_INCORRECT_INPUT)
 
         # on complete of every step print menu again
         self.view.print_menu()
         self.choose_menu()
+
+    def book_is_opened(self) -> bool:
+        """ Function to check if book is opened """
+        if not self.model.book_is_opened():
+            self.view.println(STR_NOT_OPENED)
+            return False
+        return True
