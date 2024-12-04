@@ -2,7 +2,7 @@ import os.path
 
 import json
 
-JSON_FILENAME = "../json/users_short.json"
+JSON_FILENAME = "jsons/users_short.json"
 
 MENU = ("Open phonebook",
         "Save phonebook",
