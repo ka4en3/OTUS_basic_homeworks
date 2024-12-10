@@ -31,8 +31,8 @@ def test_print_menu(capsys):
                    "8. Close and exit\n")
 
 
-def test_print_book(get_book_for_tests, capsys):
-    View.print_book(get_book_for_tests)
+def test_print_book(setup_book_as_json, capsys):
+    View.print_book(setup_book_as_json)
     captured = capsys.readouterr()
 
     # sample_str = ""
@@ -44,7 +44,7 @@ def test_print_book(get_book_for_tests, capsys):
         [
             f"{DIVIDER}\n{FIELDS_MAP['FIELD_ID']}: {cid}\n" +
             "\n".join(f"{key}: {value}" for key, value in contact.items())
-            for cid, contact in get_book_for_tests.items()
+            for cid, contact in setup_book_as_json.items()
         ]
     ) + "\n"
 
@@ -52,21 +52,21 @@ def test_print_book(get_book_for_tests, capsys):
 
 
 @pytest.mark.parametrize(
-    "par1, par2",
+    "inp, result",
     [
         (
-                (s for s in ["test_name1", "89851475236", "test_comment1"]),
-                {"name": "test_name1", "phone": "8(985)147-52-36", "comment": "test_comment1"}
+            (s for s in ["test_name1", "89851475236", "test_comment1"]),
+            {FIELDS_MAP["FIELD_NAME"]: "test_name1", FIELDS_MAP["FIELD_PHONE"]: "8(985)147-52-36", FIELDS_MAP["FIELD_COMMENT"]: "test_comment1"}
         ),
         (
-                (s for s in ["test_name2", "0", "test_comment2"]),
-                {"name": "test_name2", "phone": "", "comment": "test_comment2"}
+            (s for s in ["test_name2", "0", "test_comment2"]),
+            {FIELDS_MAP["FIELD_NAME"]: "test_name2", FIELDS_MAP["FIELD_PHONE"]: "", FIELDS_MAP["FIELD_COMMENT"]: "test_comment2"}
         )
     ]
 )
-def test_input_contact(par1, par2):
-    with patch("builtins.input", lambda x: next(par1)):
-        assert View.input_contact() == par2
+def test_input_contact(inp, result):
+    with patch("builtins.input", lambda x: next(inp)):
+        assert View.input_contact() == result
 
 
 def test_check_phone():

@@ -44,7 +44,7 @@ class Model:
                 self.__phonebook.add_to_book(new_contact)
 
             return self.__phonebook if self.book_is_opened() else None
-        except:
+        except Exception as e:
             return None
 
     def get_book(self) -> PhoneBook:
@@ -73,10 +73,8 @@ class Model:
             bool: True if the book was saved successfully, False otherwise.
         """
         try:
-            return self.__data_handler.save_data_to_file(
-                self.__phonebook.get_book_as_dict()
-            )
-        except:
+            return self.__data_handler.save_data_to_file(self.__phonebook.get_book_as_dict())
+        except Exception as e:
             return False
 
     def add_new_contact(self, input_new_contact: dict) -> bool:
@@ -103,7 +101,7 @@ class Model:
             self.__phonebook.add_to_book(new_contact)
 
             return next_id
-        except:
+        except Exception as e:
             return False
 
     def edit_contact(self, edit_id: str, input_edit_contact: dict) -> bool:
@@ -121,13 +119,13 @@ class Model:
             edit_contact = self.find_contact_by_id(edit_id)
             # use generator to filter out empty inputs
             for key, value in (
-                (k, v) for k, v in input_edit_contact.items() if v != ""
+                    (k, v) for k, v in input_edit_contact.items() if v != ""
             ):
                 key = key.strip().lower()
                 if key in FIELDS_MAP.values():
                     setattr(edit_contact, key, value)
             return True
-        except:
+        except Exception as e:
             return False
 
     def find_contact_by_id(self, edit_id: str) -> Contact:
@@ -165,7 +163,7 @@ class Model:
                             result.append(contact)
                             break
             return result
-        except:
+        except Exception as e:
             return None
 
     def delete_contact(self, delete_id: str) -> bool:
@@ -180,5 +178,5 @@ class Model:
         """
         try:
             return self.__phonebook.delete_from_book(delete_id)
-        except:
+        except Exception as e:
             return False

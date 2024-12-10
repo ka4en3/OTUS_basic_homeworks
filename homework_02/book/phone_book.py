@@ -14,6 +14,18 @@ class PhoneBook:
         self.__book: dict[str, Contact] = {}
         self.__ids: set[str] = set()
 
+    def __eq__(self, other) -> bool:
+        if len(self.__book) != len(other.__book):
+            return False
+
+        for contact in self.__book.values():
+            other_contact = other.get_book()[contact.id]
+            if (not other_contact) or not (
+                    contact.name == other_contact.name and contact.phone == other_contact.phone and contact.comment == other_contact.comment):
+                return False
+
+        return True
+
     def add_to_book(self, contact: Contact) -> bool:
         """
         Adds a contact to the phone book.
