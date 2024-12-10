@@ -1,4 +1,5 @@
-from homework_02.book.phone_book import PhoneBook
+from homework_02.book import PhoneBook
+from homework_02.book import Contact
 from homework_02.resources.strings import *
 
 

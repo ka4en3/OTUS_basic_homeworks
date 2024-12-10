@@ -1,7 +1,7 @@
 from unittest.mock import MagicMock
 import pytest
 from homework_02.mvc.model import Model
-from homework_02.book.phone_book import PhoneBook
+from homework_02.book import PhoneBook
 from homework_02.resources.strings import FIELDS_MAP
 
 

@@ -1,3 +1,4 @@
+from homework_02.book.contact import Contact
 from homework_02.resources.strings import *
 
 
