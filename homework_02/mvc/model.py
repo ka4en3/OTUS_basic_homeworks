@@ -118,9 +118,7 @@ class Model:
         try:
             edit_contact = self.find_contact_by_id(edit_id)
             # use generator to filter out empty inputs
-            for key, value in (
-                    (k, v) for k, v in input_edit_contact.items() if v != ""
-            ):
+            for key, value in ((k, v) for k, v in input_edit_contact.items() if v != ""):
                 key = key.strip().lower()
                 if key in FIELDS_MAP.values():
                     setattr(edit_contact, key, value)
@@ -153,7 +151,7 @@ class Model:
         try:
             result = []
             book = self.__phonebook.get_book()
-            words_to_find = str_to_find.split(sep=" ")
+            words_to_find = str_to_find.lower().strip().split(sep=" ")
             for contact in book.values():
                 for field in fields(contact):
                     value = getattr(contact, field.name, None)

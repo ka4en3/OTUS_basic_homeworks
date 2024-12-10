@@ -114,3 +114,13 @@ class PhoneBook:
         """
         # to comply with encapsulation -> provide a copy for search
         return self.__book.copy()
+
+    def get_size(self) -> int:
+        """
+        Returns a size of phonebook.
+
+        Returns:
+            int: a size of phonebook.
+        """
+        return len(self.__book)
+
