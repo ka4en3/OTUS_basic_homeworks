@@ -31,8 +31,8 @@ def test_print_menu(capsys):
                    "8. Close and exit\n")
 
 
-def test_print_book(setup_book_as_json, capsys):
-    View.print_book(setup_book_as_json)
+def test_print_book(setup_book_true_as_json, capsys):
+    View.print_book(setup_book_true_as_json)
     captured = capsys.readouterr()
 
     # sample_str = ""
@@ -44,7 +44,7 @@ def test_print_book(setup_book_as_json, capsys):
         [
             f"{DIVIDER}\n{FIELDS_MAP['FIELD_ID']}: {cid}\n" +
             "\n".join(f"{key}: {value}" for key, value in contact.items())
-            for cid, contact in setup_book_as_json.items()
+            for cid, contact in setup_book_true_as_json.items()
         ]
     ) + "\n"
 

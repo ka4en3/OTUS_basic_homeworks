@@ -1,5 +1,5 @@
 from homework_02.book.contact import Contact
-from homework_02.resources.strings import *
+from homework_02.resources.strings import FIELDS_MAP
 
 
 class PhoneBook:
@@ -36,7 +36,7 @@ class PhoneBook:
         Returns:
             bool: True if the contact was added successfully, False otherwise.
         """
-        if not contact:
+        if not contact or not isinstance(contact, Contact):
             return False
         self.__book[contact.id] = contact
         self.__ids.add(contact.id)

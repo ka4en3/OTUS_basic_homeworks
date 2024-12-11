@@ -1,4 +1,4 @@
-from homework_02.resources.strings import *
+from homework_02.resources.strings import DIVIDER, FIELDS_MAP, MENU
 
 
 class View:

@@ -5,31 +5,54 @@
 from unittest.mock import Mock
 import pytest
 from homework_02.mvc.model import Model
-from homework_02.book import PhoneBook
-from homework_02.book import Contact
+from homework_02.book.phone_book import PhoneBook
+from homework_02.book.contact import Contact
 from homework_02.resources.strings import FIELDS_MAP
 
 
 @pytest.fixture(scope="session", autouse=True)
-def setup_book_as_json() -> dict:
+def setup_book_true_as_json() -> dict:
     return {
         "235": {
-            "Name": "Андрианов Александр Даниилович",
-            "Phone": "+7(993)785-20-82",
-            "Company": "Мультиметры",
-            "Comment": "Кас harass situ Aubrey 1"
+            "name": "Андрианов Александр Даниилович",
+            "phone": "+7(993)785-20-82",
+            "comment": "Кас harass situ Aubrey 1"
         },
         "236": {
-            "Name": "Касьянова Александра Александровна",
-            "Phone": "+7(495)758-82-47",
-            "Company": "Стремглав",
-            "Comment": "notify caveat scuff"
+            "name": "Касьянова Александра Александровна",
+            "phone": "+7(495)758-82-47",
+            "comment": "notify caveat scuff"
         },
         "237": {
-            "Name": "Лукина Елизавета Никитична",
-            "Phone": "+7(940)465-14-13",
-            "Company": "Кожухи",
-            "Comment": "planetaria lympКасh Jonathan"
+            "name": "Лукина Елизавета Никитична",
+            "phone": "+7(940)465-14-13",
+            "comment": "planetaria lympКасh Jonathan"
+        }
+    }
+
+
+@pytest.fixture(scope="session", autouse=True)
+def setup_book_false_as_json() -> dict:
+    return {
+        "235": {
+            "name": "Андрианов Александр Даниилович",
+            "phone": "+7(993)785-20-82",
+            "comment": "Кас harass situ Aubrey 1"
+        },
+        "236": {
+            "name": "Касьянова Александра Александровна",
+            "phone": "+7(495)758-82-47",
+            "comment": "notify caveat scuff"
+        },
+        "237": {
+            "name": "Лукина Елизавета Никитична",
+            "phone": "+7(940)465-14-13",
+            "comment": "planetaria lympКасh Jonathan"
+        },
+        "238": {
+            "name": "wrong_name",
+            "phone": "1",
+            "comment": "wrong wrong wrong"
         }
     }
 
@@ -61,7 +84,7 @@ def setup_contact3():
 
 @pytest.fixture(scope="function", autouse=True)
 def setup_contact4():
-    return Contact("238", "wrong_name", " ", "wrong wrong wrong")
+    return Contact("238", "wrong_name", "1", "wrong wrong wrong")
 
 
 @pytest.fixture(scope="function", autouse=True)
@@ -98,10 +121,10 @@ def setup_phonebook_empty():
 
 
 @pytest.fixture(scope="function", autouse=True)
-def setup_model_mocked_data_handler(setup_book_as_json):
+def setup_model_mocked_data_handler(setup_book_true_as_json):
     # Mock the data handler
     mock_data_handler = Mock()
-    mock_data_handler.load_data_to_dict.return_value = setup_book_as_json
+    mock_data_handler.load_data_to_dict.return_value = setup_book_true_as_json
     mock_data_handler.save_data_to_file.return_value = True
     # Initialize model with mock data handler
     model = Model(mock_data_handler)

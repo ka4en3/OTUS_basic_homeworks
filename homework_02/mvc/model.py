@@ -1,6 +1,7 @@
-from homework_02.book import PhoneBook
-from homework_02.book import Contact
-from homework_02.resources.strings import *
+from homework_02.book.phone_book import PhoneBook
+from homework_02.book.contact import Contact
+from dataclasses import fields
+from homework_02.resources.strings import FIELDS_MAP
 
 
 class Model:

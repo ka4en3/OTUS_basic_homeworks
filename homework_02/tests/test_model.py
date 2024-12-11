@@ -1,8 +1,4 @@
-import pytest
-from homework_02.mvc.model import Model
-from homework_02.book import PhoneBook
 from homework_02.resources.strings import FIELDS_MAP
-from homework_02.tests.conftest import *
 
 
 def test_open_book(setup_model_mocked_data_handler, setup_phonebook_true, setup_phonebook_false1,

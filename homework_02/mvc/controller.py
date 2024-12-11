@@ -1,7 +1,12 @@
 from homework_02.mvc.view import View
 from homework_02.mvc.model import Model
 from homework_02.mvc.json_handler import JSONHandler
-from homework_02.resources.strings import *
+from homework_02.resources.strings import JSON_FILENAME, DIVIDER, \
+    STR_INCORRECT_INPUT, STR_NOT_OPENED, STR_WRONG, STR_ABORTED, \
+    STR_ALREADY_OPENED, STR_CONTACT_NOT_FOUND, STR_CONTACT_ADDED, \
+    STR_INPUT_TO_EDIT, STR_CONTACT_EDITED, STR_INPUT_TO_FIND, \
+    STR_FOUND_CONTACTS, STR_INPUT_TO_DELETE, STR_CONTACT_DELETED, \
+    STR_OPENING, STR_SAVING, STR_SAVED
 
 
 class Controller:
