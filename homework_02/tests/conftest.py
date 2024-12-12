@@ -1,14 +1,15 @@
 # from helpers.utils import add_homework_path
 #
 # add_homework_path(__file__)
-
 from unittest.mock import Mock
 import pytest
+import json
 from homework_02.mvc.model import Model
 from homework_02.book.phone_book import PhoneBook
 from homework_02.book.contact import Contact
 from homework_02.resources.strings import FIELDS_MAP
-from homework_02.mvc.json_handler import JSONHandler
+
+TEMP_JSON_FILENAME = "users_test_save_to_file.json"
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -131,6 +132,16 @@ def setup_model_mocked_data_handler(setup_book_true_as_json):
     model = Model(mock_data_handler)
     return model
 
-@pytest.fixture(scope="session", autouse=True)
-def setup_json_handler_save_to_file():
-    return JSONHandler("json/users_test_save_to_file.json")
+
+@pytest.fixture(scope="function")
+def setup_empty_json_file_for_tests(tmp_path):
+    with open(filepath := tmp_path / TEMP_JSON_FILENAME, "x", encoding="UTF-8") as file:
+        file.write("{}")
+    return filepath
+
+
+@pytest.fixture(scope="function")
+def setup_json_file_with_data_for_tests(tmp_path, setup_book_true_as_json):
+    with open(filepath := tmp_path / TEMP_JSON_FILENAME, "x", encoding="UTF-8") as file:
+        json.dump(setup_book_true_as_json, file, ensure_ascii=False, indent=4)
+    return filepath
