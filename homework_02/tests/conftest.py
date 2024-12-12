@@ -145,3 +145,10 @@ def setup_json_file_with_data_for_tests(tmp_path, setup_book_true_as_json):
     with open(filepath := tmp_path / TEMP_JSON_FILENAME, "x", encoding="UTF-8") as file:
         json.dump(setup_book_true_as_json, file, ensure_ascii=False, indent=4)
     return filepath
+
+
+@pytest.fixture(scope="function")
+def setup_json_file_with_wrong_data_for_tests(tmp_path, setup_book_true_as_json):
+    with open(filepath := tmp_path / "malformed.json", "x", encoding="UTF-8") as file:
+        file.write("{malformed_json: true}")  # Invalid JSON syntax
+    return filepath

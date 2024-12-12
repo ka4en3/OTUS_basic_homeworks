@@ -53,9 +53,12 @@ class JSONHandler:
             else:
                 logging.warning("JSON file doesn't exist! Phonebook can't be open.")
                 return {}
-        except (FileNotFoundError, json.JSONDecodeError) as e:
+        except (FileNotFoundError) as e:
             logging.error(f"Error loading JSON: {e}")
             return {}
+        except json.JSONDecodeError as e:
+            logging.error(f"Error loading JSON: {e}")
+            raise e
 
     def save_data_to_file(self, data: dict) -> bool:
         """
