@@ -1,3 +1,5 @@
+import sys
+
 from homework_02.mvc.view import View
 from homework_02.mvc.model import Model
 from homework_02.mvc.json_handler import JSONHandler
@@ -59,7 +61,8 @@ class Controller:
 
             # close and exit
             elif user_choice == 8:
-                exit()
+                # sys.exit()
+                return
 
             elif self.book_is_opened():
 

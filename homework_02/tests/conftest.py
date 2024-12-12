@@ -156,11 +156,9 @@ def setup_json_file_with_wrong_data_for_tests(tmp_path, setup_book_true_as_json)
     return filepath
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def setup_mocked_controller():
-    mock_model = MagicMock()    # mock Model
-    mock_view = MagicMock()     # mock View
     controller = Controller()
-    controller.model = mock_model
-    controller.view = mock_view
+    controller.model = MagicMock()    # mock Model
+    controller.view = MagicMock()     # mock View
     return controller
