@@ -1,13 +1,15 @@
 # from helpers.utils import add_homework_path
 #
 # add_homework_path(__file__)
-from unittest.mock import Mock
+
+from unittest.mock import MagicMock
 import pytest
 import json
-from homework_02.mvc.model import Model
+from homework_02.resources.strings import FIELDS_MAP
 from homework_02.book.phone_book import PhoneBook
 from homework_02.book.contact import Contact
-from homework_02.resources.strings import FIELDS_MAP
+from homework_02.mvc.model import Model
+from homework_02.mvc.controller import Controller
 
 TEMP_JSON_FILENAME = "users_test_save_to_file.json"
 
@@ -33,7 +35,7 @@ def setup_book_true_as_json() -> dict:
     }
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="session")
 def setup_book_false_as_json() -> dict:
     return {
         "235": {
@@ -98,7 +100,7 @@ def setup_phonebook_true(setup_contact1, setup_contact2, setup_contact3):
     return book
 
 
-@pytest.fixture(scope="function", autouse=True)
+@pytest.fixture(scope="function")
 def setup_phonebook_false1(setup_contact1, setup_contact2, setup_contact3, setup_contact4):
     book = PhoneBook()
     book.add_to_book(setup_contact1)
@@ -108,7 +110,7 @@ def setup_phonebook_false1(setup_contact1, setup_contact2, setup_contact3, setup
     return book
 
 
-@pytest.fixture(scope="function", autouse=True)
+@pytest.fixture(scope="function")
 def setup_phonebook_false2(setup_contact1, setup_contact2):
     book = PhoneBook()
     book.add_to_book(setup_contact1)
@@ -117,15 +119,15 @@ def setup_phonebook_false2(setup_contact1, setup_contact2):
     return book
 
 
-@pytest.fixture(scope="function", autouse=True)
+@pytest.fixture(scope="function")
 def setup_phonebook_empty():
     return PhoneBook()
 
 
-@pytest.fixture(scope="function", autouse=True)
+@pytest.fixture(scope="function")
 def setup_model_mocked_data_handler(setup_book_true_as_json):
     # Mock the data handler
-    mock_data_handler = Mock()
+    mock_data_handler = MagicMock()
     mock_data_handler.load_data_to_dict.return_value = setup_book_true_as_json
     mock_data_handler.save_data_to_file.return_value = True
     # Initialize model with mock data handler
@@ -152,3 +154,13 @@ def setup_json_file_with_wrong_data_for_tests(tmp_path, setup_book_true_as_json)
     with open(filepath := tmp_path / "malformed.json", "x", encoding="UTF-8") as file:
         file.write("{malformed_json: true}")  # Invalid JSON syntax
     return filepath
+
+
+@pytest.fixture(scope="session")
+def setup_mocked_controller():
+    mock_model = MagicMock()    # mock Model
+    mock_view = MagicMock()     # mock View
+    controller = Controller()
+    controller.model = mock_model
+    controller.view = mock_view
+    return controller

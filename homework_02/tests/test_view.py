@@ -7,8 +7,8 @@ from homework_02.mvc.view import View
 def test_println(capsys):
     View.println("Testing string", ["object1", "object2", "object3"], "---")
     out, err = capsys.readouterr()
-    assert out.strip() == "Testing string\nobject1---object2---object3"
     assert not err
+    assert out.strip() == "Testing string\nobject1---object2---object3"
 
 
 def test_user_input():
@@ -55,12 +55,14 @@ def test_print_book(setup_book_true_as_json, capsys):
     "inp, result",
     [
         (
-            (s for s in ["test_name1", "89851475236", "test_comment1"]),
-            {FIELDS_MAP["FIELD_NAME"]: "test_name1", FIELDS_MAP["FIELD_PHONE"]: "8(985)147-52-36", FIELDS_MAP["FIELD_COMMENT"]: "test_comment1"}
+                (s for s in ["test_name1", "89851475236", "test_comment1"]),
+                {FIELDS_MAP["FIELD_NAME"]: "test_name1", FIELDS_MAP["FIELD_PHONE"]: "8(985)147-52-36",
+                 FIELDS_MAP["FIELD_COMMENT"]: "test_comment1"}
         ),
         (
-            (s for s in ["test_name2", "0", "test_comment2"]),
-            {FIELDS_MAP["FIELD_NAME"]: "test_name2", FIELDS_MAP["FIELD_PHONE"]: "", FIELDS_MAP["FIELD_COMMENT"]: "test_comment2"}
+                (s for s in ["test_name2", "0", "test_comment2"]),
+                {FIELDS_MAP["FIELD_NAME"]: "test_name2", FIELDS_MAP["FIELD_PHONE"]: "",
+                 FIELDS_MAP["FIELD_COMMENT"]: "test_comment2"}
         )
     ]
 )
