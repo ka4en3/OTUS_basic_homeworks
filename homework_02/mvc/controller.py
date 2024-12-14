@@ -69,7 +69,7 @@ class Controller:
                 # save phonebook
                 if user_choice == 2:
                     self.view.println(STR_SAVING)
-                    self.view.println(STR_SAVED if self.model.save_book() else STR_SAVED)
+                    self.view.println(STR_SAVED if self.model.save_book() else STR_WRONG)
 
                 # show contacts
                 elif user_choice == 3:
