@@ -1,15 +1,6 @@
 from unittest.mock import patch, MagicMock
-from homework_02.resources.strings import STR_OPENING, STR_INCORRECT_INPUT, STR_CONTACT_ADDED, STR_SAVED, STR_WRONG
-
-
-def test_book_is_opened(setup_mocked_controller):
-    controller = setup_mocked_controller
-
-    controller.model.book_is_opened.return_value = True
-    assert controller.book_is_opened()
-
-    controller.model.book_is_opened.return_value = False
-    assert not controller.book_is_opened()
+from homework_02.resources.strings import STR_OPENING, STR_INCORRECT_INPUT, STR_CONTACT_ADDED, STR_SAVED, STR_WRONG, \
+    STR_FOUND_CONTACTS, DIVIDER, STR_CONTACT_NOT_FOUND, STR_CONTACT_EDITED, STR_CONTACT_DELETED
 
 
 def test_start_invalid_input(setup_mocked_controller):
@@ -75,16 +66,13 @@ def test_start_3_8(setup_mocked_controller, setup_book_true_as_json):
     controller = setup_mocked_controller
     controller.view.user_input.side_effect = ["3", "8"]
     controller.model.book_is_opened.return_value = True
-    controller.model.get_book.get_book_as_dict.return_value = MagicMock(get_book_as_dict=lambda: {})
+    controller.model.get_book.return_value = MagicMock(get_book_as_dict=lambda: setup_book_true_as_json)
     controller.start()
     assert controller.view.print_book.call_count == 1
-    # controller.view.print_book.assert_called_with(setup_book_true_as_json)
-    controller.view.print_book.assert_called_with("{}")
-
-    # patch("homework_02.mvc.model.Model.get_book", return_value=MagicMock(get_book_as_dict=lambda: {})),
+    controller.view.print_book.assert_called_with(setup_book_true_as_json)
 
 
-def test_new_contact(setup_mocked_controller):
+def test_start_4_8(setup_mocked_controller):
     controller = setup_mocked_controller
     controller.view.user_input.side_effect = ["4", "8"]
     controller.model.book_is_opened.return_value = True
@@ -109,3 +97,73 @@ def test_new_contact(setup_mocked_controller):
     controller.view.println.assert_called_with(STR_CONTACT_ADDED.format(new_id=1))
 
 
+def test_start_5_8(setup_mocked_controller, setup_contact1, setup_contact2, setup_contact3):
+    controller = setup_mocked_controller
+    controller.view.user_input.side_effect = ["5", "str_to_find", "8"]
+    controller.model.book_is_opened.return_value = True
+    controller.model.find_contact_by_str.return_value = list[setup_contact1, setup_contact2, setup_contact3]
+    controller.start()
+
+    assert controller.view.user_input.call_count == 3
+    assert controller.model.find_contact_by_str.call_count == 1
+    controller.model.find_contact_by_str.assert_called_with("str_to_find")
+    controller.view.println.assert_called_with(f"{STR_FOUND_CONTACTS}\n{DIVIDER}",
+                                               list[setup_contact1, setup_contact2, setup_contact3], f"\n{DIVIDER}\n")
+
+
+def test_start_6_8(setup_mocked_controller):
+    controller = setup_mocked_controller
+    controller.view.user_input.side_effect = ["6", "1", "8"]
+    controller.model.book_is_opened.return_value = True
+    controller.model.find_contact_by_id.return_value = False
+    controller.start()
+    controller.view.println.assert_called_with(STR_CONTACT_NOT_FOUND)
+
+    controller.view.user_input.side_effect = ["6", "1", "8"]
+    controller.model.find_contact_by_id.return_value = True
+    controller.view.input_contact.return_value = \
+        {
+            "name": "Name2",
+            "phone": "79851475671",
+            "comment": "Comment2"
+        }
+    controller.model.edit_contact.return_value = True
+    controller.start()
+    # Verify flow reached key points
+    controller.model.edit_contact.assert_called_with("1",
+                                                     {
+                                                         "name": "Name2",
+                                                         "phone": "79851475671",
+                                                         "comment": "Comment2"
+                                                     })
+    assert controller.view.input_contact.call_count == 1
+    assert controller.model.edit_contact.call_count == 1
+    controller.view.println.assert_called_with(STR_CONTACT_EDITED.format(edit_id=1))
+
+
+def test_start_7_8(setup_mocked_controller):
+    controller = setup_mocked_controller
+    controller.view.user_input.side_effect = ["7", "1", "8"]
+    controller.model.book_is_opened.return_value = True
+    controller.model.find_contact_by_id.return_value = False
+    controller.start()
+    controller.view.println.assert_called_with(STR_CONTACT_NOT_FOUND)
+
+    controller.view.user_input.side_effect = ["7", "1", "8"]
+    controller.model.find_contact_by_id.return_value = True
+    controller.model.delete_contact.return_value = True
+    controller.start()
+    # Verify flow reached key points
+    controller.model.delete_contact.assert_called_with("1")
+    assert controller.model.delete_contact.call_count == 1
+    controller.view.println.assert_called_with(STR_CONTACT_DELETED.format(delete_id=1))
+
+
+def test_book_is_opened(setup_mocked_controller):
+    controller = setup_mocked_controller
+
+    controller.model.book_is_opened.return_value = True
+    assert controller.book_is_opened()
+
+    controller.model.book_is_opened.return_value = False
+    assert not controller.book_is_opened()
