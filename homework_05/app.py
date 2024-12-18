@@ -1,3 +1,7 @@
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+
 """
 Домашнее задание №5
 Первое веб-приложение
@@ -19,3 +23,13 @@
   - добавьте представление для чтения сущности
   - добавьте представление для создания сущности
 """
+
+app = FastAPI(title="Basic FastAPI app")
+
+templates = Jinja2Templates(directory="templates")
+
+
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):
+    # return {"message": "Hello!"}
+    return templates.TemplateResponse("index.html", {"request": request})
