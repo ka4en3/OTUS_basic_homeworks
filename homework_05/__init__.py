@@ -1,4 +1,4 @@
-from . import app
+from .app import main
 
 __all__ = [
     "app",
