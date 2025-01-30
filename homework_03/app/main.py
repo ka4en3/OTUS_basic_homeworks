@@ -1,10 +1,8 @@
 from fastapi import FastAPI
-from routers.html_router import router as html_router
 from routers.api_router import router as api_router
 
-app = FastAPI(title="Basic FastAPI app")
-app.include_router(html_router, tags=["HTML"])
-app.include_router(api_router, prefix="/api/products", tags=["Products"])  # tags для Swagger документации
+app = FastAPI(title="Basic FastAPI app for Docker")
+app.include_router(api_router)
 
 if __name__ == '__main__':
     import uvicorn
