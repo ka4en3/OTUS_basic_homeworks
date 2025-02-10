@@ -1,4 +1,6 @@
-from . import models, jsonplaceholder_requests, main
+import models
+from fetchAPI import jsonplaceholder_requests
+import main
 
 __all__ = [
     "models",
