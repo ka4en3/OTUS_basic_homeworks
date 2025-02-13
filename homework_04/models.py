@@ -8,9 +8,11 @@
 создайте связи relationship между моделями: User.posts и Post.user
 """
 
-import os
+# import os
+#
+# PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or "postgresql+asyncpg://postgres:password@localhost/postgres"
+#
+# Base = None
+# Session = None
 
-PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or "postgresql+asyncpg://postgres:password@localhost/postgres"
-
-Base = None
-Session = None
+from models import User, User

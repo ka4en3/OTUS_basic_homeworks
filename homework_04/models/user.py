@@ -9,7 +9,7 @@ from sqlalchemy.orm import relationship
 from .base import Base
 
 if TYPE_CHECKING:
-    from . import Post
+    from .post import Post
 
 
 class User(Base):

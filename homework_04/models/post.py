@@ -27,7 +27,7 @@ class Post(CreatedAtMixin, Base):
         default="",
         server_default="",
     )
-    user_id: Mapped[int] = mapped_column(
+    userId: Mapped[int] = mapped_column(
         ForeignKey("user.id"),
         nullable=False,
     )
@@ -40,6 +40,6 @@ class Post(CreatedAtMixin, Base):
             f"{self.__class__.__name__}("
             f"id={self.id},"
             f" title={self.title!r}"
-            f" user_id={self.user_id!r}"
+            f" user_id={self.userId!r}"
             f")"
         )

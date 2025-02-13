@@ -8,16 +8,3 @@ class UserBase(BaseModel):
     username: Annotated[str, MaxLen(20)]
     name: Annotated[str, MaxLen(200)]
     email: EmailStr | None = None
-
-
-class UserRead(UserBase):
-    """
-    Reads user
-    """
-    id: int
-
-
-class UserCreate(UserBase):
-    """
-    Creates user
-    """

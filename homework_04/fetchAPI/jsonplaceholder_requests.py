@@ -5,7 +5,8 @@ from typing import Any, Coroutine
 
 from pydantic import ValidationError
 
-from schemas.user import UserRead
+from schemas import UserBase
+from schemas import PostBase
 
 # divider for printing
 DIVIDER = "-" * 50
@@ -24,10 +25,10 @@ async def fetch_json(url: str):
             return await response.json()
 
 
-async def fetch_data() -> tuple[list[UserRead], list[dict]]:
+async def fetch_data() -> tuple[list[UserBase], list[PostBase]]:
     try:
-        users_data: list[UserRead]
-        posts_data: list[dict]
+        users_data: list[UserBase]
+        posts_data: list[PostBase]
         users_data, posts_data = await asyncio.gather(
             fetch_json(USERS_DATA_URL),
             fetch_json(POSTS_DATA_URL),
@@ -45,10 +46,10 @@ async def fetch_data() -> tuple[list[UserRead], list[dict]]:
     return await validate_data(users_data, posts_data)
 
 
-async def validate_data(users_data_raw, posts_data_raw) -> tuple[list[UserRead], Any]:
+async def validate_data(users_data_raw, posts_data_raw) -> tuple[list[UserBase], list[PostBase]]:
     try:
-        users_data = [UserRead(**user) for user in users_data_raw]
-        posts_data = posts_data_raw
+        users_data = [UserBase(**user) for user in users_data_raw]
+        posts_data = [PostBase(**post) for post in posts_data_raw]
     except ValidationError as e:
         print(f"Validation error: {e}")
         return [], []
