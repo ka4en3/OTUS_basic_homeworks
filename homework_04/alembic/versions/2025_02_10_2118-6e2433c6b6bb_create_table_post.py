@@ -29,7 +29,7 @@ def upgrade() -> None:
             nullable=False,
         ),
         sa.Column("body", sa.Text(), server_default="", nullable=False),
-        sa.Column("user_id", sa.Integer(), nullable=False),
+        sa.Column("userId", sa.Integer(), nullable=False),
         sa.Column(
             "created_at",
             sa.DateTime(),
@@ -37,7 +37,7 @@ def upgrade() -> None:
             nullable=False,
         ),
         sa.ForeignKeyConstraint(
-            ["user_id"], ["user.id"], name=op.f("fk_post_user_id_user")
+            ["userId"], ["user.id"], name=op.f("fk_post_user_id_user")
         ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_post")),
     )

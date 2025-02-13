@@ -1,4 +1,3 @@
-from tokenize import String
 from typing import TYPE_CHECKING
 
 from sqlalchemy import Text
@@ -40,6 +39,6 @@ class Post(CreatedAtMixin, Base):
             f"{self.__class__.__name__}("
             f"id={self.id},"
             f" title={self.title!r}"
-            f" user_id={self.userId!r}"
+            f" userId={self.userId!r}"
             f")"
         )

@@ -7,5 +7,4 @@ convention = {
 }
 
 db_async_url = "postgresql+asyncpg://user:password@localhost:5432/db"
-# db_sync_url = "postgresql+psycopg://user:password@localhost:5432/db"
 db_echo = True

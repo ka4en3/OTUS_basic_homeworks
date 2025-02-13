@@ -1,7 +1,6 @@
 from typing import TYPE_CHECKING
 
 from sqlalchemy import String
-from sqlalchemy import Text
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship

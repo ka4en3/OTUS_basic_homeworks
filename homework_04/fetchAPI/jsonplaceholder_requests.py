@@ -37,9 +37,9 @@ async def fetch_data() -> tuple[list[UserBase], list[PostBase]]:
         print(f"Fetching error: {e}")
         return [], []
 
-    # print users
+    # # print users
     # print(*(f"{DIVIDER}\n" + "\n".join(f"{k}: {v}" for k, v in user.items()) for user in users_data), sep="\n")
-    # print posts
+    # # print posts
     # for post in posts_data:
     #     print(DIVIDER, *(f"{k}: {v}" for k, v in post.items()), sep="\n")
 

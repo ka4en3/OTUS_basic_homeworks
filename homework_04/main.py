@@ -17,7 +17,6 @@ import os
 
 from alembic.config import Config
 from sqlalchemy.ext.asyncio import AsyncSession
-
 from alembic import command
 
 from db import UsersStorage, PostsStorage
@@ -44,23 +43,27 @@ async def async_main():
     users_data, posts_data = await jsonplaceholder_requests.fetch_data()
 
     async with async_session_factory() as session:  # type: AsyncSession
-        user_storage = UsersStorage(session)
+        users_storage = UsersStorage(session)
         posts_storage = PostsStorage(session)
 
         # create all users one by one
         # for user in users_data:
         #     await user_storage.create(user)
-
         # create all users
-        await user_storage.create_many(users_data)
-
+        await users_storage.create_many(users_data)
         # get all users
-        users: list[User] = await user_storage.get()
+        users: list[User] = await users_storage.get()
         print(*users, sep="\n")
+
+        # create all posts
+        await posts_storage.create_many(posts_data)
+        # get all posts
+        posts: list[Post] = await posts_storage.get()
+        print(*posts, sep="\n")
 
 
 def main():
-    # run_migrations() # run migrations
+    run_migrations()  # run migrations
     asyncio.run(async_main())  # run async
 
 
