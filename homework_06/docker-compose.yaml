@@ -1,0 +1,36 @@
+services:
+  app:
+    build:
+      dockerfile: docker-build/app/Dockerfile
+      context: .
+    environment:
+      DB__HOST: pg
+      DB__PORT: 5432
+      DB__DATABASE: db
+      DB__USER: user
+      DB__PASSWORD: password
+    ports:
+      - "8000:8000"
+    depends_on:
+      pg:
+        condition: service_healthy
+
+  pg:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  pgdata:
