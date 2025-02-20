@@ -1,6 +1,6 @@
 from fastapi import Request, APIRouter, HTTPException
 from fastapi.responses import JSONResponse
-from schemas.product import ProductCreate, ProductRead
+from app.schemas.product import ProductCreate, ProductRead
 
 fake_db = [{"id": 1, "name": "product1", "price": 100}, {"id": 2, "name": "product2", "price": 200}]
 
