@@ -13,8 +13,8 @@ from schemas.user import (
     UserRead,
 )
 
-from .crud import UsersStorage
-from .dependencies import users_crud_dependency
+from db.crud import UsersStorage
+from db.dependencies import users_crud_dependency
 
 router = APIRouter(
     prefix="/users",
