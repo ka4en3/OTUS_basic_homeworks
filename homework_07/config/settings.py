@@ -26,7 +26,8 @@ SECRET_KEY = "django-insecure-y2gfx1%5bzwtp7-@rwq1wn%6f3zr2_=@@%x^ij(0b8117j=87h
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
+    "127.0.0.1",
+    "0.0.0.0",
 ]
 
 
@@ -39,8 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
-    "store_app"
+    "store_app",
 ]
 
 MIDDLEWARE = [
@@ -81,6 +81,9 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+        'OPTIONS': {
+            'timeout': 20,
+        }
     }
 }
 
