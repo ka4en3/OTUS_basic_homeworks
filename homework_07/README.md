@@ -15,3 +15,23 @@
 - Создать и применить миграции.
 4. Работа с ORM:
 - Создать записи для моделей, используя кастомную команду.
+
+#### Запуск:
+1. Установить зависимости
+2. Выполнить миграции: 
+```python
+python manage.py makemigrations
+python manage.py migrate
+```
+3. Добавить тестовые данные из фикстур:
+```python
+python manage.py loaddata store_fixture.json
+```
+или из кастомных команд: 
+```python
+python manage.py generate_test_data
+```
+4. Запустить сервер:
+```python    
+python manage.py runserver
+``` 
