@@ -8,7 +8,8 @@
   <ul class="list-group">
       {% for product in products %}
       <li class="list-group-item">
-        <h5>{{ product.name }}</h5>
+<!--        <h5>{{ product.name }}</h5>-->
+        <h5><a class="nav-link" href="{% url 'product_detail' product.id %}">{{ product.name }}</a></h5>
         {% if product.description %}
           <p>{{ product.description|truncatewords:10}}</p>
         {% else %}

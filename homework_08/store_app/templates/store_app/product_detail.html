@@ -7,4 +7,6 @@
   <p>{{ product.category.name }}</p>
   <p>{{ product.description }}</p>
   <p>{{ product.price }}</p>
+  <a href="{% url 'edit_product' product.id %}" class="btn btn-warning">Edit</a>
+  <a href="{% url 'delete_product' product.id %}" class="btn btn-danger">Delete</a>
 {% endblock %}
