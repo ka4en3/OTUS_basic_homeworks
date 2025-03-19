@@ -1,0 +1,25 @@
+{% extends 'store_app/base.html' %}
+
+{% block title %} We offer: {% endblock %}
+
+{% block content %}
+
+  <h1>List of goods</h1>
+  <ul class="list-group">
+      {% for product in products %}
+      <li class="list-group-item">
+        <h5>{{ product.name }}</h5>
+        {% if product.description %}
+          <p>{{ product.description|truncatewords:10}}</p>
+        {% else %}
+          <p>No description.</p>
+        {% endif %}
+        <p>Price: {{ product.price }}</p>
+        <small>Category: {{ product.category.name }}</small>
+      </li>
+      {% empty %}
+        <p>Oops! We can't find any goods.</p>
+      {% endfor %}
+  </ul>
+
+{% endblock %}
