@@ -40,4 +40,8 @@ python manage.py generate_test_data
 4. Запустить сервер:
 ```python    
 python manage.py runserver
-``` 
+```
+5. Админка доступна по:
+``` http
+http://127.0.0.1:8000/admin/
+```
