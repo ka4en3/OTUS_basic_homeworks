@@ -21,6 +21,8 @@ psycopg = "^3.2.4"
 psycopg-binary = "^3.2.4"
 asyncpg = "^0.30.0"
 annotated-types = "^0.7.0"
+django = "^5.1.7"
+faker = "^37.0.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"
