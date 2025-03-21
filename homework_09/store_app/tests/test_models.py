@@ -5,6 +5,7 @@ from store_app.models import Product, Category
 # Для работы с реальной БД pytest --reuse-db
 @pytest.mark.django_db
 def test_category_creation(category):
+    """tests after creation of model Category """
     assert Category.objects.count() == 1
     assert category.name == 'Test category'
     assert str(category) == 'Test category'
@@ -12,6 +13,7 @@ def test_category_creation(category):
 
 @pytest.mark.django_db
 def test_product_creation(product1, product2):
+    """tests after creation of model Product """
     assert Product.objects.count() == 2
 
     product_1 = Product.objects.get(pk=product1.id)

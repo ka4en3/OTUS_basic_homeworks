@@ -35,3 +35,7 @@ python manage.py runserver
 ``` http
 http://127.0.0.1:8000/admin/
 ```
+6.Запустить тесты:
+```python    
+pytest
+```

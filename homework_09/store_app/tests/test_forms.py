@@ -5,6 +5,7 @@ from store_app.forms import ProductModelForm, ProductDeleteForm
 
 @pytest.mark.django_db
 def test_productmodelform_validation(category):
+    """tests for form ProductModelForm"""
     form_data = {
         'name': 'Model of product',
         'description': 'some description of model of product',

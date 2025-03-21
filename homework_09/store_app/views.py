@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.utils.safestring import mark_safe
 from django.views.generic import (
@@ -19,10 +18,20 @@ from .forms import ProductModelForm, ProductDeleteForm
 
 
 def index(request):
+    """
+    Render the home page of the store application.
+    Args:
+        request: The HTTP request object.
+    Returns:
+        HttpResponse: The rendered home page.
+    """
     return render(request, "store_app/home.html")
 
 
 class ProductListView(ListView):
+    """
+    Display a list of products with optional filtering by category and price.
+    """
     model = Product
     template_name = "store_app/product_list.html"
     context_object_name = "products"
@@ -46,6 +55,10 @@ class ProductListView(ListView):
 
 
 class ProductDetailView(DetailView):
+    """
+    Display detailed information about a specific product.
+    Increments the product's rating each time the page is viewed.
+    """
     model = Product
     template_name = "store_app/product_detail.html"
     context_object_name = "product"
@@ -59,6 +72,10 @@ class ProductDetailView(DetailView):
 
 
 class ProductCreateView(CreateView):
+    """
+    View for creating a new product.
+    Displays a form and handles form submission.
+    """
     model = Product
     template_name = "store_app/crud_product.html"
     form_class = ProductModelForm
@@ -76,6 +93,10 @@ class ProductCreateView(CreateView):
 
 
 class ProductUpdateView(UpdateView):
+    """
+    View for updating an existing product.
+    Displays a form with current product data and handles form submission.
+    """
     model = Product
     template_name = "store_app/crud_product.html"
     form_class = ProductModelForm
@@ -93,6 +114,10 @@ class ProductUpdateView(UpdateView):
 
 
 class ProductDeleteView(DeleteView):
+    """
+    View for deleting an existing product.
+    Displays a confirmation page and handles product deletion.
+    """
     model = Product
     template_name = "store_app/crud_product.html"
     success_url = reverse_lazy("product_list")
@@ -107,6 +132,9 @@ class ProductDeleteView(DeleteView):
 
 
 class AboutTemplateView(TemplateView):
+    """
+    View for displaying the About page with general information about the app.
+    """
     template_name = "store_app/about.html"
 
     def get_context_data(self, **kwargs):

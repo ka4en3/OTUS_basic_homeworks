@@ -1,6 +1,5 @@
 import pytest
 from django.urls import reverse
-from store_app.models import Product, Category
 
 
 def test_about_view(client):

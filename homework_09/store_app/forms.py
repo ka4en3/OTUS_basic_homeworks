@@ -4,6 +4,10 @@ from .models import Product
 
 
 class ProductModelForm(forms.ModelForm):
+    """
+    Form for creating and updating Product instances.
+    Provides custom validation and styling for product fields.
+    """
     class Meta:
         model = Product
         fields = ["name", "description", "price", "category"]
@@ -39,6 +43,14 @@ class ProductModelForm(forms.ModelForm):
         }
 
     def clean_name(self):
+        """
+        Validate the product name field.
+        Ensures the name is at least 2 characters long.
+        Returns:
+            str: The validated product name.
+        Raises:
+            ValidationError: If the name is less than 2 characters.
+        """
         name = self.cleaned_data["name"]
         if len(name) < 2:
             raise forms.ValidationError(
@@ -47,12 +59,29 @@ class ProductModelForm(forms.ModelForm):
         return name
 
     def clean_price(self):
+        """
+        Validate the product price field.
+        Ensures the price is between 0.01 and 999.
+        Returns:
+            float: The validated price.
+        Raises:
+            ValidationError: If the price is outside the allowed range.
+        """
         price = self.cleaned_data["price"]
         if float(price) < 0.01 or float(price) > 999:
             raise forms.ValidationError("Price must be between 0.01 and 999")
         return price
 
     def clean(self):
+        """
+        Perform cross-field validation for the entire form.
+        Checks for excessive marketing buzzwords in description and
+        validates the product name for special characters.
+        Returns:
+            dict: The cleaned form data.
+        Raises:
+            ValidationError: Added to specific fields if validation fails.
+        """
         cleaned_data = super().clean()
         name = cleaned_data.get("name")
         description = cleaned_data.get("description")
@@ -80,6 +109,10 @@ class ProductModelForm(forms.ModelForm):
 
 
 class ProductDeleteForm(forms.Form):
+    """
+    Form for confirming product deletion.
+    Provides a confirmation checkbox with a warning message.
+    """
     confirm = forms.BooleanField(
         required=True,
         label="Confirm deletion",
