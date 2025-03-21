@@ -1,0 +1,64 @@
+{% extends 'store_app/base.html' %}
+
+{% block title %} Store {% endblock %}
+
+{% block content %}
+
+<div class="card border bg-info">
+  <div class="card-body">
+
+  <h2 class="font-weight-bold mb-4">Filtering</h2>
+   <!-- Filtering -->
+   <form method="GET" class="row mb-4">
+       <div class="col-md-4">
+          <h5 class="font-weight-bold">
+            <label for="category" class="form-label">Category</label>
+          </h5>
+           <select name="category" id="category" class="form-control">
+               <option value="">
+                   All categories
+               </option>
+
+               {% for category in categories %}
+                   <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}selected{% endif %}>
+                       {{ category.name }}
+                   </option>
+               {% endfor %}
+           </select>
+       </div>
+
+       <div class="col-md-4">
+           <h5 class="font-weight-bold">
+             <label for="price" class="form-label">Maximum price</label>
+           </h5>
+           <input type="number" name="price" id="price" class="form-control" placeholder="Enter maximum price"
+                  value="{{ request.GET.price }}" min="0" step="0.01">
+       </div>
+
+       <div class="col-md-4 d-flex align-items-end">
+           <button type="submit" class="btn btn-primary w-100">Apply</button>
+       </div>
+  </form>
+ </div>
+</div>
+
+  <h1>List of goods</h1>
+  <ul class="list-group">
+      {% for product in products %}
+      <li class="list-group-item">
+<!--        <h5>{{ product.name }}</h5>-->
+        <h5><a class="nav-link" href="{% url 'product_detail' product.id %}">{{ product.name }}</a></h5>
+        {% if product.description %}
+          <p>{{ product.description|truncatewords:10}}</p>
+        {% else %}
+          <p>No description.</p>
+        {% endif %}
+        <p>Price: {{ product.price }}</p>
+        <small>Category: {{ product.category.name }}</small>
+      </li>
+      {% empty %}
+        <p>Oops! We can't find any goods.</p>
+      {% endfor %}
+  </ul>
+
+{% endblock %}

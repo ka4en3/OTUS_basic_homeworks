@@ -1,0 +1,152 @@
+[
+  {
+    "model": "store_app.category",
+    "pk": 1,
+    "fields": {
+      "name": "Electronics",
+      "description": "Electronic devices and gadgets for everyday use"
+    }
+  },
+  {
+    "model": "store_app.category",
+    "pk": 2,
+    "fields": {
+      "name": "Home & Kitchen",
+      "description": "Items for your home and kitchen needs"
+    }
+  },
+  {
+    "model": "store_app.category",
+    "pk": 3,
+    "fields": {
+      "name": "Books",
+      "description": "Books across various genres and topics"
+    }
+  },
+  {
+    "model": "store_app.category",
+    "pk": 4,
+    "fields": {
+      "name": "Clothing",
+      "description": "Fashion items and accessories"
+    }
+  },
+  {
+    "model": "store_app.category",
+    "pk": 5,
+    "fields": {
+      "name": "Sports & Outdoors",
+      "description": "Equipment and gear for sports and outdoor activities"
+    }
+  },
+  {
+    "model": "store_app.product",
+    "pk": 1,
+    "fields": {
+      "name": "Smartphone XL",
+      "description": "High-end smartphone with 6.7-inch display and 128GB storage",
+      "price": "899.99",
+      "created_at": "2023-09-15T08:30:00Z",
+      "category": 1
+    }
+  },
+  {
+    "model": "store_app.product",
+    "pk": 2,
+    "fields": {
+      "name": "Wireless Earbuds",
+      "description": "Bluetooth earbuds with noise cancellation and 24-hour battery life",
+      "price": "149.99",
+      "created_at": "2023-09-16T10:45:00Z",
+      "category": 1
+    }
+  },
+  {
+    "model": "store_app.product",
+    "pk": 3,
+    "fields": {
+      "name": "Coffee Maker",
+      "description": "Programmable coffee maker with thermal carafe, brew strength control",
+      "price": "79.99",
+      "created_at": "2023-09-17T14:20:00Z",
+      "category": 2
+    }
+  },
+  {
+    "model": "store_app.product",
+    "pk": 4,
+    "fields": {
+      "name": "Knife Set",
+      "description": "Professional 15-piece knife set with block, includes kitchen shears",
+      "price": "129.99",
+      "created_at": "2023-09-18T11:15:00Z",
+      "category": 2
+    }
+  },
+  {
+    "model": "store_app.product",
+    "pk": 5,
+    "fields": {
+      "name": "Modern Programming Techniques",
+      "description": "Comprehensive guide to modern programming paradigms and practices",
+      "price": "39.99",
+      "created_at": "2023-09-19T09:30:00Z",
+      "category": 3
+    }
+  },
+  {
+    "model": "store_app.product",
+    "pk": 6,
+    "fields": {
+      "name": "Historical Fiction Collection",
+      "description": "Bestselling historical fiction trilogy set in ancient Rome",
+      "price": "45.99",
+      "created_at": "2023-09-20T16:45:00Z",
+      "category": 3
+    }
+  },
+  {
+    "model": "store_app.product",
+    "pk": 7,
+    "fields": {
+      "name": "Winter Jacket",
+      "description": "Waterproof winter jacket with thermal lining and detachable hood",
+      "price": "199.99",
+      "created_at": "2023-09-21T13:50:00Z",
+      "category": 4
+    }
+  },
+  {
+    "model": "store_app.product",
+    "pk": 8,
+    "fields": {
+      "name": "Leather Boots",
+      "description": "Genuine leather boots with non-slip sole and cushioned insole",
+      "price": "159.99",
+      "created_at": "2023-09-22T15:30:00Z",
+      "category": 4
+    }
+  },
+  {
+    "model": "store_app.product",
+    "pk": 9,
+    "fields": {
+      "name": "Yoga Mat",
+      "description": "Non-slip yoga mat with carrying strap, 6mm thickness",
+      "price": "29.99",
+      "created_at": "2023-09-23T08:15:00Z",
+      "category": 5
+    }
+  },
+  {
+    "model": "store_app.product",
+    "pk": 10,
+    "fields": {
+      "name": "Mountain Bike",
+      "description": "All-terrain mountain bike with 21 speeds and front suspension",
+      "price": "499.99",
+      "created_at": "2023-09-24T12:00:00Z",
+      "category": 5
+    }
+  }
+]
