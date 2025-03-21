@@ -26,3 +26,10 @@ faker = "^37.0.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"
+
+[tool.poetry.group.test.dependencies]
+beautifulsoup4 = "^4.13.3"
+pytest = "^8.3.5"
+pytest-django = "^4.10.0"
+pytest-mock = "^3.14.0"
+
