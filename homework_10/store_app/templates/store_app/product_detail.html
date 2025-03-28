@@ -1,0 +1,13 @@
+{% extends 'store_app/base.html' %}
+
+{% block title %} {{ product.name }} {% endblock %}
+
+{% block content %}
+  <h1>{{ product.name }}</h1>
+  <p>Category: {{ product.category.name }}</p>
+  <p>{{ product.description }}</p>
+  <p>Price: {{ product.price }}</p>
+  <p>This page was opened {{ product.rating }} times</p>
+  <a href="{% url 'edit_product' product.id %}" class="btn btn-warning">Edit</a>
+  <a href="{% url 'delete_product' product.id %}" class="btn btn-danger">Delete</a>
+{% endblock %}
