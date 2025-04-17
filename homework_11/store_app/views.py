@@ -17,6 +17,7 @@ from .models import Category, Product
 from .forms import ProductModelForm, ProductDeleteForm
 from .tasks import product_creation_logging
 
+
 def index(request):
     """
     Render the home page of the store application.
@@ -32,6 +33,7 @@ class ProductListView(ListView):
     """
     Display a list of products with optional filtering by category and price.
     """
+
     model = Product
     template_name = "store_app/product_list.html"
     context_object_name = "products"
@@ -59,6 +61,7 @@ class ProductDetailView(DetailView):
     Display detailed information about a specific product.
     Increments the product's rating each time the page is viewed.
     """
+
     model = Product
     template_name = "store_app/product_detail.html"
     context_object_name = "product"
@@ -76,6 +79,7 @@ class ProductCreateView(CreateView):
     View for creating a new product.
     Displays a form and handles form submission.
     """
+
     model = Product
     template_name = "store_app/crud_product.html"
     form_class = ProductModelForm
@@ -102,6 +106,7 @@ class ProductUpdateView(UpdateView):
     View for updating an existing product.
     Displays a form with current product data and handles form submission.
     """
+
     model = Product
     template_name = "store_app/crud_product.html"
     form_class = ProductModelForm
@@ -123,6 +128,7 @@ class ProductDeleteView(DeleteView):
     View for deleting an existing product.
     Displays a confirmation page and handles product deletion.
     """
+
     model = Product
     template_name = "store_app/crud_product.html"
     success_url = reverse_lazy("product_list")
@@ -131,7 +137,9 @@ class ProductDeleteView(DeleteView):
         context = super().get_context_data(**kwargs)
         product = self.get_object()
         context["title"] = "Delete product"
-        context["text"] = mark_safe(f"Confirm to delete <strong>{product.name}</strong>?")
+        context["text"] = mark_safe(
+            f"Confirm to delete <strong>{product.name}</strong>?"
+        )
         context["btn_name"] = "Delete"
         return context
 
@@ -140,6 +148,7 @@ class AboutTemplateView(TemplateView):
     """
     View for displaying the About page with general information about the app.
     """
+
     template_name = "store_app/about.html"
 
     def get_context_data(self, **kwargs):

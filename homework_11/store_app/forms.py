@@ -8,6 +8,7 @@ class ProductModelForm(forms.ModelForm):
     Form for creating and updating Product instances.
     Provides custom validation and styling for product fields.
     """
+
     class Meta:
         model = Product
         fields = ["name", "description", "price", "category"]
@@ -113,6 +114,7 @@ class ProductDeleteForm(forms.Form):
     Form for confirming product deletion.
     Provides a confirmation checkbox with a warning message.
     """
+
     confirm = forms.BooleanField(
         required=True,
         label="Confirm deletion",

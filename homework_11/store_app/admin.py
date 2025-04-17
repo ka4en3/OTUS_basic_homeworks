@@ -7,6 +7,7 @@ from .forms import ProductModelForm
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     """Use custom form for the administration of products."""
+
     form = ProductModelForm
     list_display = ("name", "description", "price", "category", "created_at")
     ordering = ("name", "-price")
@@ -35,6 +36,7 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     """Use custom form for the administration of categories."""
+
     list_display = ["name", "description", "product_count"]
     ordering = ["name"]
     search_fields = ["name", "description"]

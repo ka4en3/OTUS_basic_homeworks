@@ -1,7 +1,9 @@
 from django.db import models
 
+
 class Category(models.Model):
     """Model representing a Category."""
+
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
 
@@ -9,9 +11,9 @@ class Category(models.Model):
         return self.name
 
 
-
 class Product(models.Model):
     """Model representing a Product."""
+
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
