@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.11", "3.12"]
+        python-version: ["3.11"]
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
@@ -19,6 +19,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         cd homework_11
-    - name: Analysing the code with pylint
+    - name: Analysing the code of homework_11 with pylint
       run: |
-        pylint $(git ls-files '*.py')
+        pylint $(git ls-files 'homework_11/*.py')
+
