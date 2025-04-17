@@ -9,4 +9,5 @@ eventlet~=0.39.1
 django-celery-results~=2.5.1
 redis~=5.2.1
 pylint~=3.3.6
+pytest-cov~=6.1.1
 
